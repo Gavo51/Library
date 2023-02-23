@@ -1,4 +1,4 @@
-const displayContainer = document.querySelector(".library-container");
+const libraryContainer = document.querySelector(".library-container");
 
 const myLibrary = [];
 
@@ -24,14 +24,14 @@ function displayLibrary() {
     const bookInfoCard = document.createElement("div");
     const bookInfoList = document.createElement("ul");
 
-    Object.keys(book).forEach((item) => {
+    Object.values(book).forEach((value) => {
       const listItem = document.createElement("li");
-      listItem.textContent = book[item];
+      listItem.textContent = value;
       bookInfoList.appendChild(listItem);
     });
 
     bookInfoCard.appendChild(bookInfoList);
-    displayContainer.appendChild(bookInfoCard);
+    libraryContainer.appendChild(bookInfoCard);
   });
 }
 
