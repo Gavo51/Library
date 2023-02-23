@@ -1,4 +1,5 @@
 const libraryContainer = document.querySelector(".library-container");
+const newBookForm = document.querySelector("form");
 
 const myLibrary = [];
 
@@ -10,13 +11,24 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-const book1 = new Book("Harry Potter", "J.K Rowling", 600, "read");
-const book2 = new Book("The Hobbit", "J.R.R Tolkien", 300, "read");
+/* const book1 = new Book("Harry Potter", "J.K Rowling", 600, "read");
+const book2 = new Book("The Hobbit", "J.R.R Tolkien", 300, "read"); */
 
 // Add book to myLibrary array
 function addBookToLibrary() {
-  myLibrary.push(book1);
-  myLibrary.push(book2);
+  const bookTitle = document.getElementById("title").value;
+  const bookAuthor = document.getElementById("author").value;
+  const numPages = document.getElementById("pages").value;
+  const readStatus = document.getElementsByName("read_status").value;
+
+  myLibrary.push(new Book(bookTitle, bookAuthor, numPages, readStatus));
+}
+
+// Clear the library container every time a new book is added to myLibrary
+function clearLibrary() {
+  while (libraryContainer.firstChild) {
+    libraryContainer.removeChild(libraryContainer.lastChild);
+  }
 }
 
 function displayLibrary() {
@@ -35,5 +47,10 @@ function displayLibrary() {
   });
 }
 
-addBookToLibrary();
-displayLibrary();
+newBookForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  addBookToLibrary();
+  clearLibrary();
+  displayLibrary();
+  console.log(myLibrary);
+});
