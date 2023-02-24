@@ -11,17 +11,25 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-/* const book1 = new Book("Harry Potter", "J.K Rowling", 600, "read");
-const book2 = new Book("The Hobbit", "J.R.R Tolkien", 300, "read"); */
+function checkIfRead(selectedRadio) {
+  if (selectedRadio[0].checked) {
+    return "Read";
+  }
+  if (selectedRadio[1].checked) {
+    return "Not Read";
+  }
+}
 
 // Add book to myLibrary array
 function addBookToLibrary() {
   const bookTitle = document.getElementById("title").value;
   const bookAuthor = document.getElementById("author").value;
   const numPages = document.getElementById("pages").value;
-  const readStatus = document.getElementsByName("read_status").value;
+  const radioCheck = document.getElementsByName("read_status");
 
-  myLibrary.push(new Book(bookTitle, bookAuthor, numPages, readStatus));
+  myLibrary.push(
+    new Book(bookTitle, bookAuthor, numPages, checkIfRead(radioCheck))
+  );
 }
 
 // Clear the library container every time a new book is added to myLibrary
@@ -52,5 +60,4 @@ newBookForm.addEventListener("submit", (event) => {
   addBookToLibrary();
   clearLibrary();
   displayLibrary();
-  console.log(myLibrary);
 });
