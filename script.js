@@ -12,12 +12,7 @@ function Book(title, author, pages, read) {
 }
 
 function checkIfRead(selectedRadio) {
-  if (selectedRadio[0].checked) {
-    return "Read";
-  }
-  if (selectedRadio[1].checked) {
-    return "Not Read";
-  }
+  return selectedRadio[0].checked ? "Read" : "Not read";
 }
 
 // Add book to myLibrary array
@@ -33,24 +28,31 @@ function addBookToLibrary() {
 }
 
 // Clear the library container every time a new book is added to myLibrary
-function clearLibrary() {
+function refreshLibrary() {
   while (libraryContainer.firstChild) {
     libraryContainer.removeChild(libraryContainer.lastChild);
   }
 }
 
 function displayLibrary() {
+  // creates a new book card for each book object in myLibrary array
   myLibrary.forEach((book) => {
     const bookInfoCard = document.createElement("div");
     const bookInfoList = document.createElement("ul");
 
-    Object.values(book).forEach((value) => {
+    const bookData = [book.title, book.author, book.pages];
+
+    bookData.forEach((element) => {
       const listItem = document.createElement("li");
-      listItem.textContent = value;
+      listItem.textContent = element;
       bookInfoList.appendChild(listItem);
     });
 
+    const readButton = document.createElement("button");
+    readButton.textContent = book.read;
+
     bookInfoCard.appendChild(bookInfoList);
+    bookInfoCard.appendChild(readButton);
     libraryContainer.appendChild(bookInfoCard);
   });
 }
@@ -58,6 +60,6 @@ function displayLibrary() {
 newBookForm.addEventListener("submit", (event) => {
   event.preventDefault();
   addBookToLibrary();
-  clearLibrary();
+  refreshLibrary();
   displayLibrary();
 });
