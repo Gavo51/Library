@@ -35,6 +35,7 @@ function refreshLibrary() {
 }
 
 function displayLibrary() {
+  console.log(myLibrary);
   // creates a new book card for each book object in myLibrary array
   myLibrary.forEach((book) => {
     const bookInfoCard = document.createElement("div");
@@ -42,23 +43,40 @@ function displayLibrary() {
 
     const bookData = [book.title, book.author, book.pages];
 
-    bookData.forEach((element) => {
+    bookData.forEach((property) => {
       const listItem = document.createElement("li");
-      listItem.textContent = element;
+      listItem.textContent = property;
       bookInfoList.appendChild(listItem);
     });
 
+    // create read/not read toggle button
     const readButton = document.createElement("button");
+    readButton.addEventListener("click", () => {});
     readButton.textContent = book.read;
+
+    // create delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.addEventListener("click", () => {
+      deleteBook(myLibrary.indexOf(book));
+    });
+    deleteButton.textContent = "DELETE";
 
     bookInfoCard.appendChild(bookInfoList);
     bookInfoCard.appendChild(readButton);
+    bookInfoCard.appendChild(deleteButton);
     libraryContainer.appendChild(bookInfoCard);
   });
 }
 
-newBookForm.addEventListener("submit", (event) => {
-  event.preventDefault();
+// Delete book from myLibrary
+function deleteBook(bookIndex) {
+  myLibrary.splice(bookIndex, 2);
+  refreshLibrary();
+  displayLibrary();
+}
+
+newBookForm.addEventListener("submit", (e) => {
+  e.preventDefault();
   addBookToLibrary();
   refreshLibrary();
   displayLibrary();
