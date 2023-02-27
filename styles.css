@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+:root {
+  --primary-color: #ef4444;
+  --secondary-color: #4a6163;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+  display: flex;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  border: none;
+}
+
+input {
+  border: none;
+}
+
+/* LEFT SECTION */
+
+.left-section {
+  background-color: var(--primary-color);
+  color: white;
+  height: 100vh;
+  flex: 1;
+  align-items: center;
+  padding: 20px;
+}
+
+.left-section .header-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.left-section .header-icon {
+  height: 50px;
+  filter: invert(1);
+}
+
+.left-section h1 {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.book-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.form-input-section p {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.form-input-section label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.form-input-section input {
+  flex: 3;
+  padding: 5px 5px;
+}
+
+.form-input-section h4 {
+  text-align: center;
+}
+
+.form-input-section .radio-list {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.form-input-section h4 {
+  margin-top: 25px;
+}
+
+.form-btn-section {
+  margin-top: 30px;
+  display: flex;
+}
+
+.form-btn-section p {
+  width: 100%;
+  display: flex;
+  gap: 5px;
+}
+
+.form-btn-section button:hover {
+  background-color: white;
+  color: var(--primary-color);
+}
+
+.cancel-button,
+.add-button {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  border: 2px solid white;
+  padding: 5px 0;
+  flex: 1;
+}
+
+/* RIGHT SECTION */
+
+.right-section {
+  flex: 3;
+}
