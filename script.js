@@ -35,17 +35,29 @@ function refreshLibrary() {
 }
 
 function displayLibrary() {
-  console.log(myLibrary);
   // creates a new book card for each book object in myLibrary array
   myLibrary.forEach((book) => {
     const bookInfoCard = document.createElement("div");
+    bookInfoCard.classList.add("book-card");
     const bookInfoList = document.createElement("ul");
 
-    const bookData = [book.title, book.author, book.pages];
+    // extract only the first 3 properties of book object
+    const bookData = {
+      title: book.title,
+      author: book.author,
+      pages: book.pages,
+    };
 
-    bookData.forEach((property) => {
+    Object.entries(bookData).forEach(([key, value]) => {
       const listItem = document.createElement("li");
-      listItem.textContent = property;
+
+      const itemKey = document.createElement("span");
+      itemKey.textContent = `${key}:`;
+      const itemValue = document.createElement("span");
+      itemValue.textContent = value;
+
+      listItem.appendChild(itemKey);
+      listItem.appendChild(itemValue);
       bookInfoList.appendChild(listItem);
     });
 
@@ -70,7 +82,7 @@ function displayLibrary() {
 
 // Delete book from myLibrary
 function deleteBook(bookIndex) {
-  myLibrary.splice(bookIndex, 2);
+  myLibrary.splice(bookIndex, 1);
   refreshLibrary();
   displayLibrary();
 }
