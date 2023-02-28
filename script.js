@@ -12,7 +12,7 @@ function Book(title, author, pages, read) {
 }
 
 function checkIfRead(selectedRadio) {
-  return selectedRadio[0].checked ? "Read" : "Not read";
+  return selectedRadio[0].checked ? "READ" : "NOT READ";
 }
 
 // Add book to myLibrary array
@@ -39,43 +39,45 @@ function displayLibrary() {
   myLibrary.forEach((book) => {
     const bookInfoCard = document.createElement("div");
     bookInfoCard.classList.add("book-card");
-    const bookInfoList = document.createElement("ul");
 
-    // extract only the first 3 properties of book object
-    const bookData = {
-      title: book.title,
-      author: book.author,
-      pages: book.pages,
-    };
+    // Section for book title
+    const titleSection = document.createElement("div");
 
-    Object.entries(bookData).forEach(([key, value]) => {
-      const listItem = document.createElement("li");
+    const bookTitle = document.createElement("h1");
+    bookTitle.textContent = book.title;
 
-      const itemKey = document.createElement("span");
-      itemKey.textContent = `${key}:`;
-      const itemValue = document.createElement("span");
-      itemValue.textContent = value;
+    titleSection.appendChild(bookTitle);
 
-      listItem.appendChild(itemKey);
-      listItem.appendChild(itemValue);
-      bookInfoList.appendChild(listItem);
-    });
+    // Section for the book information, read status and delete button
+    const infoSection = document.createElement("div");
 
-    // create read/not read toggle button
+    const bookAuthor = document.createElement("p");
+    const bookPages = document.createElement("p");
+    bookAuthor.textContent = `Author: ${book.author}`;
+    bookPages.textContent = `Pages: ${book.pages}`;
+
+    // Read status toggle button
     const readButton = document.createElement("button");
+    readButton.classList.add("read-status-toggle");
     readButton.addEventListener("click", () => {});
     readButton.textContent = book.read;
 
-    // create delete button
+    // Delete button
     const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-button");
     deleteButton.addEventListener("click", () => {
       deleteBook(myLibrary.indexOf(book));
     });
     deleteButton.textContent = "DELETE";
 
-    bookInfoCard.appendChild(bookInfoList);
-    bookInfoCard.appendChild(readButton);
-    bookInfoCard.appendChild(deleteButton);
+    infoSection.appendChild(bookAuthor);
+    infoSection.appendChild(bookPages);
+    infoSection.appendChild(readButton);
+    infoSection.appendChild(deleteButton);
+
+    bookInfoCard.appendChild(titleSection);
+    bookInfoCard.appendChild(infoSection);
+
     libraryContainer.appendChild(bookInfoCard);
   });
 }
