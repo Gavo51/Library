@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable no-param-reassign */
 const libraryContainer = document.querySelector(".library-container");
 const newBookForm = document.querySelector("form");
 
@@ -11,9 +13,15 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-function checkIfRead(selectedRadio) {
-  return selectedRadio[0].checked ? "READ" : "NOT READ";
-}
+Book.prototype.toggleRead = function () {
+  if (this.read === "READ") {
+    this.read = "NOT READ";
+  } else if (this.read === "NOT READ") {
+    this.read = "READ";
+  }
+  refreshLibrary();
+  displayLibrary();
+};
 
 // Add book to myLibrary array
 function addBookToLibrary() {
@@ -59,7 +67,9 @@ function displayLibrary() {
     // Read status toggle button
     const readButton = document.createElement("button");
     readButton.classList.add("read-status-toggle");
-    readButton.addEventListener("click", () => {});
+    readButton.addEventListener("click", () => {
+      book.toggleRead();
+    });
     readButton.textContent = book.read;
 
     // Delete button
@@ -80,6 +90,10 @@ function displayLibrary() {
 
     libraryContainer.appendChild(bookInfoCard);
   });
+}
+
+function checkIfRead(selectedRadio) {
+  return selectedRadio[0].checked ? "READ" : "NOT READ";
 }
 
 // Delete book from myLibrary
