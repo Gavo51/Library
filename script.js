@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 const libraryContainer = document.querySelector(".library-container");
 const newBookForm = document.querySelector("form");
+const addBookBtn = document.querySelector(".add-book-btn");
 
 const myLibrary = [];
 
@@ -102,6 +103,10 @@ function deleteBook(bookIndex) {
   refreshLibrary();
   displayLibrary();
 }
+
+addBookBtn.addEventListener("click", () => {
+  newBookForm.classList.toggle("active");
+});
 
 newBookForm.addEventListener("submit", (e) => {
   e.preventDefault();
