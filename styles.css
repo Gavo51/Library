@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 :root {
-  --primary-color: #ef4444;
-  --secondary-color: #4a6163;
+  --primary-color: #5cc560;
+  /* --background-color: #3d4558; */
+  --background-color: #282e3a;
+  --button-color: #3a943c;
 }
 
 * {
@@ -28,40 +30,82 @@ input {
   border: none;
 }
 
+.hidden {
+  display: none;
+}
+
 /* LEFT SECTION */
 
 .left-section {
   background-color: var(--primary-color);
   color: white;
+  width: 350px;
   height: 100vh;
+  position: fixed;
   flex: 1;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 30px 20px;
 }
 
-.left-section .header-container {
-  display: flex;
+.left-section .header {
   justify-content: center;
   gap: 20px;
+  width: 100%;
+  display: flex;
 }
 
-.left-section .header-icon {
+.header .header-icon {
   height: 50px;
   filter: invert(1);
 }
 
-.left-section h1 {
+.header h1 {
   text-align: center;
   font-size: 3rem;
 }
 
-.book-form {
+.left-section .dropdown {
+  margin-top: 50px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
 }
 
-.form-input-section p {
+.left-section button {
+  padding: 10px 5px;
+  width: 100%;
+  border-radius: 3px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--button-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.left-section button img {
+  height: 25px;
+  filter: invert(1);
+}
+
+.book-form {
+  margin-top: 50px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.form-input-section > p {
   display: flex;
   justify-content: space-between;
   gap: 10px;
@@ -117,7 +161,6 @@ input {
   background-color: var(--primary-color);
   color: white;
   font-weight: bold;
-  border: 2px solid white;
   padding: 5px 0;
   flex: 1;
 }
@@ -126,17 +169,57 @@ input {
 
 .right-section {
   padding: 25px;
+  background-color: var(--background-color);
+  overflow: hidden;
   flex: 3;
 }
 
 .library-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 20px;
 }
 
 .book-card {
-  border: 2px solid black;
-  padding: 10px;
   height: 250px;
+  color: var(--background-color);
+  overflow: hidden;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card div:nth-child(1) {
+  background-color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.book-card div:nth-child(2) {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  padding: 20px 5px;
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.book-card button {
+  background-color: var(--button-color);
+  color: white;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+.book-card .read-status-toggle {
+  margin-top: 30px;
+}
+
+.book-card .delete-button {
+  margin-top: 5px;
 }
