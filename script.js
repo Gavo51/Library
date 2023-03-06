@@ -2,7 +2,8 @@
 /* eslint-disable no-param-reassign */
 const libraryContainer = document.querySelector(".library-container");
 const newBookForm = document.querySelector("form");
-const addBookBtn = document.querySelector(".add-book-btn");
+const displayFormBtn = document.querySelector(".display-form-btn");
+const cancelBtn = document.querySelector(".cancel-button");
 
 const myLibrary = [];
 
@@ -30,12 +31,15 @@ Book.prototype.showReadStatus = function () {
 
 // Add book to myLibrary array
 function addBookToLibrary() {
+  const bookForm = document.getElementById("book-form");
   const bookTitle = document.getElementById("title").value;
   const bookAuthor = document.getElementById("author").value;
   const numPages = document.getElementById("pages").value;
   const checkboxStat = document.getElementById("read-status").checked;
 
   myLibrary.push(new Book(bookTitle, bookAuthor, numPages, checkboxStat));
+
+  bookForm.reset();
 }
 
 // Clear the library container every time a new book is added to myLibrary
@@ -105,7 +109,11 @@ function deleteBook(bookIndex) {
   displayLibrary();
 }
 
-addBookBtn.addEventListener("click", () => {
+displayFormBtn.addEventListener("click", () => {
+  newBookForm.classList.toggle("active");
+});
+
+cancelBtn.addEventListener("click", () => {
   newBookForm.classList.toggle("active");
 });
 
