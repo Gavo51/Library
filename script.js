@@ -7,21 +7,25 @@ const addBookBtn = document.querySelector(".add-book-btn");
 const myLibrary = [];
 
 // Book constructor
-function Book(title, author, pages, read) {
+function Book(title, author, pages, readStatus) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.read = read;
+  this.readStatus = readStatus;
 }
 
-Book.prototype.toggleRead = function () {
-  if (this.read === "READ") {
-    this.read = "NOT READ";
-  } else if (this.read === "NOT READ") {
-    this.read = "READ";
+Book.prototype.toggleReadStatus = function () {
+  if (this.readStatus) {
+    this.readStatus = false;
+  } else if (!this.readStatus) {
+    this.readStatus = true;
   }
   refreshLibrary();
   displayLibrary();
+};
+
+Book.prototype.showReadStatus = function () {
+  return this.readStatus ? "Already read" : "Not read";
 };
 
 // Add book to myLibrary array
@@ -29,11 +33,9 @@ function addBookToLibrary() {
   const bookTitle = document.getElementById("title").value;
   const bookAuthor = document.getElementById("author").value;
   const numPages = document.getElementById("pages").value;
-  const radioCheck = document.getElementsByName("read_status");
+  const checkboxStat = document.getElementById("read-status").checked;
 
-  myLibrary.push(
-    new Book(bookTitle, bookAuthor, numPages, checkIfRead(radioCheck))
-  );
+  myLibrary.push(new Book(bookTitle, bookAuthor, numPages, checkboxStat));
 }
 
 // Clear the library container every time a new book is added to myLibrary
@@ -57,21 +59,23 @@ function displayLibrary() {
 
     titleSection.appendChild(bookTitle);
 
-    // Section for the book information, read status and delete button
+    // Section for the book information and read status
     const infoSection = document.createElement("div");
 
     const bookAuthor = document.createElement("p");
     const bookPages = document.createElement("p");
+    const readStatus = document.createElement("p");
     bookAuthor.textContent = `Author: ${book.author}`;
     bookPages.textContent = `Pages: ${book.pages}`;
+    readStatus.textContent = `Status: ${book.showReadStatus()}`;
 
     // Read status toggle button
-    const readButton = document.createElement("button");
-    readButton.classList.add("read-status-toggle");
-    readButton.addEventListener("click", () => {
-      book.toggleRead();
+    const statusButton = document.createElement("button");
+    statusButton.classList.add("read-status-toggle");
+    statusButton.addEventListener("click", () => {
+      book.toggleReadStatus();
     });
-    readButton.textContent = book.read;
+    statusButton.textContent = "CHANGE STATUS";
 
     // Delete button
     const deleteButton = document.createElement("button");
@@ -83,7 +87,8 @@ function displayLibrary() {
 
     infoSection.appendChild(bookAuthor);
     infoSection.appendChild(bookPages);
-    infoSection.appendChild(readButton);
+    infoSection.appendChild(readStatus);
+    infoSection.appendChild(statusButton);
     infoSection.appendChild(deleteButton);
 
     bookInfoCard.appendChild(titleSection);
@@ -91,10 +96,6 @@ function displayLibrary() {
 
     libraryContainer.appendChild(bookInfoCard);
   });
-}
-
-function checkIfRead(selectedRadio) {
-  return selectedRadio[0].checked ? "READ" : "NOT READ";
 }
 
 // Delete book from myLibrary
