@@ -4,7 +4,9 @@
 :root {
   --primary-color: #5cc560;
   --primary-color-dark: #3a943c;
-  --background-color: #282e3a;
+  --background-color: #374151;
+  --background-color-dark: #111827;
+  --warning-red: #ef4444;
 }
 
 * {
@@ -14,9 +16,9 @@
 }
 
 body {
-  font-family: Roboto, sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   display: flex;
-  background-color: var(--background-color);
+  background-color: var(--background-color-dark);
 }
 
 ul {
@@ -51,7 +53,6 @@ input {
 }
 
 .left-section .header {
-  font-family: "Roboto Condensed", "Roboto", sans-serif;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -179,38 +180,37 @@ input {
   height: 100%;
   margin-left: 350px;
   padding: 25px;
-  background-color: var(--background-color);
 }
 
 .library-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
   gap: 20px;
 }
 
 .book-card {
-  height: 250px;
-  color: var(--background-color);
-  overflow: hidden;
+  height: 300px;
+  overflow: auto;
   border-radius: 3px;
   display: flex;
   flex-direction: column;
 }
 
 .book-card div:nth-child(1) {
-  background-color: white;
-  text-transform: uppercase;
   font-weight: bold;
+  background-color: var(--primary-color-dark);
+  padding: 0 10px 0 10px;
+  color: white;
   flex: 1;
   display: flex;
   align-items: center;
 }
 
 .book-card div:nth-child(2) {
-  background-color: var(--primary-color);
+  background-color: var(--background-color);
   color: white;
   font-weight: bold;
-  padding: 20px 5px;
+  padding: 20px 10px;
   flex: 2;
   display: flex;
   flex-direction: column;
@@ -222,12 +222,24 @@ input {
   color: white;
   font-weight: bold;
   padding: 5px 0;
+  border-radius: 3px;
 }
 
 .book-card .read-status-toggle {
   margin-top: 30px;
 }
 
+.book-card .read-status-toggle:hover {
+  background-color: white;
+  color: var(--primary-color);
+}
+
 .book-card .delete-button {
+  background-color: var(--warning-red);
   margin-top: 5px;
+}
+
+.book-card .delete-button:hover {
+  background-color: white;
+  color: var(--warning-red);
 }
